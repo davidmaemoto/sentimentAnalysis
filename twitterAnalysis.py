@@ -3,26 +3,13 @@ import tweepy
 from textblob import TextBlob
  
 class TwitterClient(object):
-    '''
-    Generic Twitter Class for sentiment analysis.
-    '''
     def __init__(self):
-        '''
-        Class constructor or initialization method.
-        '''
         
-        # keys and tokens from the Twitter Dev Console
         
         # attempt authentication
         try:
             self.auth = tweepy.OAuth2BearerHandler("AAAAAAAAAAAAAAAAAAAAAHqxrgEAAAAASgqU9biV5NlP8LCny4TI6Mdx%2Bqk%3Dfsm3Ono4WiIuu5rj8HMvsa363IbO8ycupli5Zh6Z4VOGiA3EFx")
             self.api = tweepy.API(self.auth)
-            # create OAuthHandler object
-            #self.auth = OAuth2UserHandler(consumer_key, consumer_secret)
-            # set access token and secret
-            #self.auth.set_access_token(access_token, access_token_secret)
-            # create tweepy API object to fetch tweets
-            #self.api = tweepy.API(self.auth)
         except:
             print("Error: Authentication Failed")
  
