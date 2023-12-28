@@ -1,6 +1,5 @@
 import re
 import tweepy
-from tweepy import OAuthHandler
 from textblob import TextBlob
  
 class TwitterClient(object):
@@ -11,20 +10,19 @@ class TwitterClient(object):
         '''
         Class constructor or initialization method.
         '''
+        
         # keys and tokens from the Twitter Dev Console
-        consumer_key = 'hnn2oEqr5ZQnSnzJIQZvzbsTn'
-        consumer_secret = 'b2xSr6rHhLo2Yi72R7uvPRCSR3MpaDUkKzwwQf5dBRaggz5s5z'
-        access_token = '1314776606586494976-yuDVJpa4AFm6w3MjgDYV7rAJZesqDD'
-        access_token_secret = 'qOYuloD8dJPvsVDytl5NksOEV6KI05EeRJRYR8tDCkGZM'
- 
+        
         # attempt authentication
         try:
-            # create OAuthHandler object
-            self.auth = OAuthHandler(consumer_key, consumer_secret)
-            # set access token and secret
-            self.auth.set_access_token(access_token, access_token_secret)
-            # create tweepy API object to fetch tweets
+            self.auth = tweepy.OAuth2BearerHandler("AAAAAAAAAAAAAAAAAAAAAHqxrgEAAAAASgqU9biV5NlP8LCny4TI6Mdx%2Bqk%3Dfsm3Ono4WiIuu5rj8HMvsa363IbO8ycupli5Zh6Z4VOGiA3EFx")
             self.api = tweepy.API(self.auth)
+            # create OAuthHandler object
+            #self.auth = OAuth2UserHandler(consumer_key, consumer_secret)
+            # set access token and secret
+            #self.auth.set_access_token(access_token, access_token_secret)
+            # create tweepy API object to fetch tweets
+            #self.api = tweepy.API(self.auth)
         except:
             print("Error: Authentication Failed")
  
@@ -60,7 +58,7 @@ class TwitterClient(object):
         try:
             # call twitter api to fetch tweets
             fetched_tweets = self.api.search_tweets(q = query, count = count)
- 
+
             # parsing tweets one by one
             for tweet in fetched_tweets:
                 # empty dictionary to store required params of a tweet
@@ -90,7 +88,7 @@ def main():
     # creating object of TwitterClient Class
     api = TwitterClient()
     # calling function to get tweets
-    tweets = api.get_tweets(query = 'Bitcoin', count = 200)
+    tweets = api.get_tweets(query = 'Bitcoin', count = 10)
  
     # picking positive tweets from tweets
     ptweets = [tweet for tweet in tweets if tweet['sentiment'] == 'positive']
